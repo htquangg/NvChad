@@ -1,4 +1,6 @@
-<h1 align="center">NvChad</h1>
+<h1 align="center">NvChad</h1>  
+
+**This configuration was forked from [NvChad](https://github.com/NvChad/NvChad).**  
 
 <div align="center">
 	<a href="https://nvchad.com/">Home</a>
