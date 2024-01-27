@@ -23,6 +23,10 @@ M.general = {
     ["<C-j>"] = { "<C-w>j", "Window down" },
     ["<C-k>"] = { "<C-w>k", "Window up" },
 
+    -- Split navigation
+    ["ss"] = { "<C-w>s", "Split" },
+    ["sv"] = { "<C-w>v", "Vsplit" },
+
     -- save
     ["<C-s>"] = { "<cmd> w <CR>", "Save file" },
 
@@ -51,6 +55,60 @@ M.general = {
         vim.lsp.buf.format { async = true }
       end,
       "LSP formatting",
+    },
+
+    -- Navigate tabs
+    ["<leader>tn"] = {
+      "<cmd>tabnew<cr>",
+      desc = "Select tab 1",
+    },
+    ["]t"] = {
+      function()
+        vim.cmd.tabnext()
+      end,
+      desc = "Next tab",
+    },
+    ["[t"] = {
+      function()
+        vim.cmd.tabprevious()
+      end,
+      desc = "Previous tab",
+    },
+    ["<leader>1"] = {
+      "1gt",
+      desc = "Select tab 1",
+    },
+    ["<leader>2"] = {
+      "2gt",
+      desc = "Select tab 2",
+    },
+    ["<leader>3"] = {
+      "3gt",
+      desc = "Select tab 3",
+    },
+    ["<leader>4"] = {
+      "4gt",
+      desc = "Select tab 4",
+    },
+    ["<leader>5"] = {
+      "5gt",
+      desc = "Select tab 5",
+    },
+    ["<leader>6"] = {
+      "6gt",
+      desc = "Select tab 6",
+    },
+    ["<leader>7"] = {
+      "7gt",
+      desc = "Select tab 7",
+    },
+    ["<leader>8"] = {
+      "8gt",
+      desc = "Select tab 8",
+    },
+    ["<leader>9"] = {
+      "9gt",
+      desc = "Select tab 9",
     },
   },
 
@@ -172,7 +230,7 @@ M.lspconfig = {
       "LSP definition type",
     },
 
-    ["<leader>ra"] = {
+    ["<leader>rr"] = {
       function()
         require("nvchad.renamer").open()
       end,
@@ -187,9 +245,7 @@ M.lspconfig = {
     },
 
     ["gr"] = {
-      function()
-        vim.lsp.buf.references()
-      end,
+      "<cmd>Telescope lsp_references <CR>",
       "LSP references",
     },
 
@@ -200,18 +256,23 @@ M.lspconfig = {
       "Floating diagnostic",
     },
 
-    ["[d"] = {
+    ["[e"] = {
       function()
         vim.diagnostic.goto_prev { float = { border = "rounded" } }
       end,
       "Goto prev",
     },
 
-    ["]d"] = {
+    ["]e"] = {
       function()
         vim.diagnostic.goto_next { float = { border = "rounded" } }
       end,
       "Goto next",
+    },
+
+    ["<leader>le"] = {
+      "<cmd>Telescope diagnostics<CR>",
+      "Diagnostic in workspace",
     },
 
     ["<leader>q"] = {
@@ -258,7 +319,7 @@ M.nvimtree = {
 
   n = {
     -- toggle
-    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+    ["<C-b>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
 
     -- focus
     ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" },
@@ -273,13 +334,24 @@ M.telescope = {
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+    ["<leader>fW"] = {
+      function()
+        require("telescope.builtin").live_grep {
+          additional_args = function(args)
+            return vim.list_extend(args, { "--hidden", "--no-ignore" })
+          end,
+        }
+      end,
+      desc = "Find words in all files",
+    },
     ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
 
     -- git
-    ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
+    ["<leader>gc"] = { "<cmd> Telescope git_commits <CR>", "Git commits (repository)" },
+    ["<leader>gC"] = { "<cmd> Telescope git_bcommits <CR>", "Git commits (current file)" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Git status" },
 
     -- pick a hidden term
@@ -297,7 +369,7 @@ M.nvterm = {
 
   t = {
     -- toggle in terminal mode
-    ["<A-i>"] = {
+    ["<F1>"] = {
       function()
         require("nvterm.terminal").toggle "float"
       end,
@@ -321,7 +393,7 @@ M.nvterm = {
 
   n = {
     -- toggle in normal mode
-    ["<A-i>"] = {
+    ["<F1>"] = {
       function()
         require("nvterm.terminal").toggle "float"
       end,
@@ -340,21 +412,6 @@ M.nvterm = {
         require("nvterm.terminal").toggle "vertical"
       end,
       "Toggle vertical term",
-    },
-
-    -- new
-    ["<leader>h"] = {
-      function()
-        require("nvterm.terminal").new "horizontal"
-      end,
-      "New horizontal term",
-    },
-
-    ["<leader>v"] = {
-      function()
-        require("nvterm.terminal").new "vertical"
-      end,
-      "New vertical term",
     },
   },
 }
@@ -435,14 +492,42 @@ M.gitsigns = {
     },
 
     -- Actions
-    ["<leader>rh"] = {
+    ["<leader>gS"] = {
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      desc = "Stage Git hunk",
+    },
+
+    -- ["<leader>gS"] = {
+    --   function()
+    --     require("gitsigns").stage_buffer()
+    --   end,
+    --   desc = "Stage Git buffer",
+    -- },
+
+    ["<leader>gr"] = {
       function()
         require("gitsigns").reset_hunk()
       end,
       "Reset hunk",
     },
 
-    ["<leader>ph"] = {
+    -- ["<leader>gR"] = {
+    --   function()
+    --     require("gitsigns").reset_buffer()
+    --   end,
+    --   desc = "Reset Git buffer",
+    -- },
+
+    ["<leader>gu"] = {
+      function()
+        require("gitsigns").undo_stage_hunk()
+      end,
+      desc = "Unstage Git hunk",
+    },
+
+    ["<leader>gp"] = {
       function()
         require("gitsigns").preview_hunk()
       end,
@@ -456,6 +541,13 @@ M.gitsigns = {
       "Blame line",
     },
 
+    ["<leader>gB"] = {
+      function()
+        package.loaded.gitsigns.blame_line { full = true }
+      end,
+      "View full Git blame",
+    },
+
     ["<leader>td"] = {
       function()
         require("gitsigns").toggle_deleted()
@@ -463,6 +555,14 @@ M.gitsigns = {
       "Toggle deleted",
     },
   },
+}
+
+M.fugitive = {
+  n = {
+    ["<leader>gs"] = { "<cmd>Git <CR>", "Open fugutive" },
+  },
+
+  -- vim.api.nvim_set_keymap('n', '<leader>gs', ':0Git<CR>', { noremap = true })
 }
 
 return M
