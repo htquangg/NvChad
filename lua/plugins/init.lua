@@ -318,6 +318,14 @@ local default_plugins = {
     },
   },
 
+  {
+    "kdheepak/lazygit.nvim",
+    event = "VeryLazy",
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
 }
 
 local config = require("core.utils").load_config()

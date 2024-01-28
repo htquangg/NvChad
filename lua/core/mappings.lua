@@ -111,10 +111,14 @@ M.general = {
       desc = "Select tab 9",
     },
 
-    -- Lazy docker
+    -- Lazy docker, git
     ["<leader>ld"] = {
-      "<cmd>LazyDocker <CR>",
+      "<cmd>LazyDocker<CR>",
       desc = "Open lazy docker",
+    },
+    ["<leader>lg"] = {
+      "<cmd>LazyGit<CR>",
+      desc = "Open lazy git",
     },
   },
 
