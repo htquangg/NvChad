@@ -105,19 +105,6 @@ local plugins = {
     end,
   },
 
-  {
-    "tpope/vim-fugitive",
-    lazy = false,
-  },
-
-  {
-    "rbong/vim-flog",
-    lazy = false,
-    dependencies = {
-      "tpope/vim-fugitive",
-    },
-  },
-
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

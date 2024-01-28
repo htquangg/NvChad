@@ -119,6 +119,19 @@ local default_plugins = {
     end,
   },
 
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+  },
+
+  {
+    "rbong/vim-flog",
+    lazy = false,
+    dependencies = {
+      "tpope/vim-fugitive",
+    },
+  },
+
   -- lsp stuff
   {
     "williamboman/mason.nvim",
