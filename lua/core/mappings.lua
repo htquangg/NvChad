@@ -110,6 +110,12 @@ M.general = {
       "9gt",
       desc = "Select tab 9",
     },
+
+    -- Lazy docker
+    ["<leader>ld"] = {
+      "<cmd>LazyDocker <CR>",
+      desc = "Open lazy docker",
+    },
   },
 
   t = {
