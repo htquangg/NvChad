@@ -34,8 +34,41 @@ M.ui = {
     theme = "default", -- default/vscode/vscode_colored/minimal
     -- default/round/block/arrow separators work only for default statusline theme
     -- round and block will work for minimal theme only
-    separator_style = "default",
-    overriden_modules = nil,
+    separator_style = "round",
+    overriden_modules = function(modules)
+      -- https://github.com/NvChad/NvChad/discussions/2246
+      modules[2] = (function()
+        local fn = vim.fn
+        local config = require("core.utils").load_config().ui.statusline
+        local sep_style = config.separator_style
+
+        local default_sep_icons = {
+          default = { left = "", right = " " },
+          round = { left = "", right = "" },
+          block = { left = "█", right = "█" },
+          arrow = { left = "", right = "" },
+        }
+
+        local separators = (type(sep_style) == "table" and sep_style) or default_sep_icons[sep_style]
+
+        local sep_r = separators["right"]
+        local icon = " 󰈚 "
+        local filename = (fn.expand "%" == "" and "Empty ") or fn.expand "%:." --change here
+
+        if filename ~= "Empty " then
+          local devicons_present, devicons = pcall(require, "nvim-web-devicons")
+
+          if devicons_present then
+            local ft_icon = devicons.get_icon(filename)
+            icon = (ft_icon ~= nil and " " .. ft_icon) or ""
+          end
+
+          filename = " " .. filename .. " "
+        end
+
+        return "%#St_file_info#" .. icon .. filename .. "%#St_file_sep#" .. sep_r
+      end)()
+    end,
   },
 
   -- lazyload it when there are 1+ buffers
