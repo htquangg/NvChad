@@ -284,6 +284,8 @@ local default_plugins = {
     end,
   },
 
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
   -- Only load whichkey after all the gui
   {
     "folke/which-key.nvim",
