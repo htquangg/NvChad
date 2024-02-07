@@ -52,6 +52,7 @@ opt.whichwrap:append "<>[]hl"
 
 -- other stuff
 opt.colorcolumn = "80,100"
+opt.swapfile = false
 
 g.mapleader = " "
 
