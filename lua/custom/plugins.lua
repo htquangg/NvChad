@@ -105,6 +105,10 @@ local plugins = {
     end,
   },
 
+  {
+    "lambdalisue/suda.vim",
+    event = "VeryLazy",
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
@@ -118,6 +122,7 @@ local plugins = {
   --   "mg979/vim-visual-multi",
   --   lazy = false,
   -- }
+  --
 }
 
 return plugins

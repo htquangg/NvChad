@@ -14,7 +14,7 @@ local options = {
     scss = { "prettier" },
     html = { "prettier" },
 
-    go = { "gofumpt", "goimports" },
+    go = {"goimports", "gofumpt" },
 
     sh = { "shfmt" },
   },
