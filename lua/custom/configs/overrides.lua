@@ -1,15 +1,15 @@
 local M = {}
 
+-- require("nvim-treesitter.install").prefer_git = true 
 M.treesitter = {
   ensure_installed = {
-    "vim",
-    "lua",
     "html",
     "css",
     "javascript",
     "typescript",
     "tsx",
     "c",
+    "cmake",
     "markdown",
     "markdown_inline",
     "go",
@@ -24,7 +24,6 @@ M.treesitter = {
     "json5",
     "jsonc",
     "sql",
-    "vim",
     "yaml",
     "rust",
     "python",
@@ -41,7 +40,6 @@ M.mason = {
   ensure_installed = {
     -- lua stuff
     "lua-language-server",
-    "luacheck",
     "stylua",
 
     -- web dev stuff
