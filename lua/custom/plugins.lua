@@ -111,7 +111,7 @@ local plugins = {
   },
   {
     "LunarVim/bigfile.nvim",
-    event = "BufReadPre"
+    event = "BufReadPre",
   },
   -- To make a plugin not be loaded
   -- {
@@ -127,6 +127,39 @@ local plugins = {
   --   lazy = false,
   -- }
   --
+  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+  {
+    "mfussenegger/nvim-dap",
+    ft = {
+      "go",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    dependencies = {
+      {
+        "rcarriga/nvim-dap-ui",
+        dependencies = {
+          "nvim-neotest/nvim-nio",
+        },
+        opts = true,
+      },
+      { "theHamsta/nvim-dap-virtual-text", opts = true },
+      { "LiadOz/nvim-dap-repl-highlights", opts = true },
+      { "nvim-telescope/telescope-dap.nvim", opts = true },
+    },
+	-- stylua: ignore
+	keys = {
+		{ "<F5>",  function() require("dap").continue() end,  desc = "DAP: Continue",  mode = "n" },
+		{ "<F10>", function() require("dap").step_over() end, desc = "DAP: Step Over", mode = "n" },
+		{ "<F11>", function() require("dap").step_into() end, desc = "DAP: Step Into", mode = "n" },
+		{ "<F12>", function() require("dap").step_out() end,  desc = "DAP: Step Out",  mode = "n" },
+	},
+    config = function(_)
+      require("plugins.configs.dap").config()
+    end,
+  },
 }
 
 return plugins

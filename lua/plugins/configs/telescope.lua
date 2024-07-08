@@ -48,7 +48,7 @@ local options = {
       n = { ["q"] = require("telescope.actions").close },
     },
   },
-  extensions_list = { "themes", "terms", "fzf" },
+  extensions_list = { "themes", "terms", "fzf", "dap" },
 }
 
 return options
