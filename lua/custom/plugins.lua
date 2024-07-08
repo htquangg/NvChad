@@ -109,6 +109,10 @@ local plugins = {
     "lambdalisue/suda.vim",
     event = "VeryLazy",
   },
+  {
+    "LunarVim/bigfile.nvim",
+    event = "BufReadPre"
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

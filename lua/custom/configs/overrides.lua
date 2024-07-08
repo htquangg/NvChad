@@ -53,6 +53,7 @@ M.mason = {
     -- Go
     "gopls",
     "golangci-lint",
+    "golangci-lint-langserver",
     "delve",
     "gofumpt",
     "goimports",
@@ -75,6 +76,8 @@ M.mason = {
     "yaml-language-server",
     "yamllint",
     "yamlfmt",
+    "terraform-ls",
+    "tflint",
 
     -- Git
     "commitlint",

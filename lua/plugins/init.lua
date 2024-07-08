@@ -303,7 +303,81 @@ local default_plugins = {
       "nvim-lua/plenary.nvim",
     },
   },
+  {
+    "vim-test/vim-test",
+    opts = {
+      setup = {},
+    },
+    config = function(plugin, opts)
+      vim.g["test#strategy"] = "neovim"
+      vim.g["test#neovim#term_position"] = "belowright"
+      vim.g["test#neovim#preserve_screen"] = 1
 
+      -- Set up vim-test
+      for k, _ in pairs(opts.setup) do
+        opts.setup[k](plugin, opts)
+      end
+    end,
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-vim-test",
+      "vim-test/vim-test",
+    },
+    opts = function()
+      return {
+        adapters = {
+          require "neotest-vim-test" {
+            ignore_file_types = { "python", "vim", "lua" },
+          },
+        },
+      }
+    end,
+    keys = {
+      -- {
+      --   "<leader>tF",
+      --   "<cmd>w|lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+      --   desc = "Debug File",
+      -- },
+      { "<leader>tL", "<cmd>w|lua require('neotest').run.run_last({strategy = 'dap'})<cr>", desc = "Debug Last" },
+      { "<leader>ta", "<cmd>w|lua require('neotest').run.attach()<cr>", desc = "Attach" },
+      { "<leader>tf", "<cmd>w|lua require('neotest').run.run(vim.fn.expand('%'))<cr>", desc = "File" },
+      { "<leader>tl", "<cmd>w|lua require('neotest').run.run_last()<cr>", desc = "Last" },
+      { "<leader>tn", "<cmd>w|lua require('neotest').run.run()<cr>", desc = "Nearest" },
+      { "<leader>tN", "<cmd>w|lua require('neotest').run.run({strategy = 'dap'})<cr>", desc = "Debug Nearest" },
+      { "<leader>to", "<cmd>w|lua require('neotest').output.open({ enter = true })<cr>", desc = "Output" },
+      { "<leader>ts", "<cmd>w|lua require('neotest').run.stop()<cr>", desc = "Stop" },
+      { "<leader>tS", "<cmd>w|lua require('neotest').summary.toggle()<cr>", desc = "Summary" },
+    },
+    config = function(_, opts)
+      local neotest_ns = vim.api.nvim_create_namespace "neotest"
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+            return message
+          end,
+        },
+      }, neotest_ns)
+      require("neotest").setup(opts)
+    end,
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/neotest-go",
+    },
+    opts = function(_, opts)
+      vim.list_extend(opts.adapters, {
+        require "neotest-go",
+      })
+    end,
+  },
   {
     "jellydn/hurl.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
