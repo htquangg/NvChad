@@ -1,5 +1,12 @@
 local cmp = require "cmp"
 
+cmp.setup.filetype({ "sql" }, {
+  sources = {
+    { name = "vim-dadbod-completion" },
+    { name = "buffer" },
+  },
+})
+
 dofile(vim.g.base46_cache .. "cmp")
 
 local cmp_ui = require("core.utils").load_config().ui.cmp
