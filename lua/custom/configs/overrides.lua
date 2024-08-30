@@ -95,6 +95,7 @@ M.mason = {
     "codespell",
     "dockerfile-language-server",
     "editorconfig-checker",
+    "yamlfix",
     -- "html-lsp",
   },
 }

@@ -51,10 +51,10 @@ M.general = {
     ["<leader>ch"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
 
     -- Navigate tabs
-    ["<leader>tn"] = {
-      "<cmd>tabnew<cr>",
-      desc = "Select tab 1",
-    },
+    -- ["<leader>tn"] = {
+    --   "<cmd>tabnew<cr>",
+    --   desc = "Select tab 1",
+    -- },
     ["]t"] = {
       function()
         vim.cmd.tabnext()
@@ -563,6 +563,8 @@ M.gitsigns = {
 M.fugitive = {
   n = {
     ["<leader>gs"] = { "<cmd>Git <CR>", "Open fugutive" },
+    ["<leader>gh"] = { ":diffget //2<CR>", ""},
+    ["<leader>gj"] = { ":diffget //3<CR>", ""},
   },
 
   -- vim.api.nvim_set_keymap('n', '<leader>gs', ':0Git<CR>', { noremap = true })

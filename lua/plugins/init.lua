@@ -389,6 +389,10 @@ local default_plugins = {
     dependencies = { "MunifTanjim/nui.nvim" },
     ft = "hurl",
     opts = {
+      -- Specify your custom environment file name here
+      env_file = {
+        ".vars.env",
+      },
       -- Show debugging info
       debug = false,
       -- Show notification on run

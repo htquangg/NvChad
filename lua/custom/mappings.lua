@@ -18,6 +18,11 @@ M.general = {
       "<CMD>Flog<CR>",
       "Git graph",
     },
+    ["<leader>gY"] = {
+      function()
+        require("gitlinker").get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})
+      end
+    },
 
     -- HOP around the screen with ease
     ["s"] = { "<CMD>HopChar2MW<CR>", "Hop anywhere" },
@@ -29,6 +34,12 @@ M.general = {
 
     -- HOP around the screen with ease
     ["s"] = { "<cmd>HopChar2MW<cr>", "Hop anywhere" },
+
+    ["<leader>gY"] = {
+      function()
+        require("gitlinker").get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})
+      end
+    },
   },
 }
 

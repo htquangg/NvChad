@@ -13,12 +13,13 @@ local options = {
     css = { "prettier" },
     scss = { "prettier" },
     html = { "prettier" },
-    yaml = { "prettier" },
+    yaml = { "yamlfix" },
     vue = { "prettier" },
 
     go = { "goimports", "gofumpt" },
 
     sh = { "shfmt" },
+    proto = { "buf" }
   },
   -- adding same formatter for multiple filetypes can look too much work for some
   -- instead of the above code you could just use a loop! the config is just a table after all!
