@@ -19,7 +19,10 @@ local options = {
     go = { "goimports", "gofumpt" },
 
     sh = { "shfmt" },
-    proto = { "buf" }
+    php = { "php-cs-fixer" },
+    blade = { "blade-formatter" },
+    proto = { "buf" },
+    rust = { "rustfmt", lsp_format = "fallback" },
   },
   -- adding same formatter for multiple filetypes can look too much work for some
   -- instead of the above code you could just use a loop! the config is just a table after all!

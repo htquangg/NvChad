@@ -130,7 +130,11 @@ local default_plugins = {
       vim.g.mason_binaries_list = opts.ensure_installed
     end,
   },
-
+  {
+    "towolf/vim-helm",
+    lazy = false,
+    priority = 900,
+  },
   {
     "neovim/nvim-lspconfig",
     event = "User FilePost",
@@ -138,6 +142,7 @@ local default_plugins = {
       require "plugins.configs.lspconfig"
     end,
   },
+
 
   -- go stuff
   {

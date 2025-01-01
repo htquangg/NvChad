@@ -20,6 +20,9 @@ local servers = {
   "tflint",
   "dockerls",
   "lua_ls",
+  "phpactor",
+  "helm_ls",
+  "rust_analyzer",
 }
 
 for _, lsp in ipairs(servers) do
@@ -29,17 +32,14 @@ for _, lsp in ipairs(servers) do
       capabilities = capabilities,
       settings = {
         yaml = {
-          disableDefaultProperties = true,
-          schemaStore = {
-            url = "https://www.schemastore.org/api/json/catalog.json",
-            enable = true,
-          },
-          schemas = {
-            ["file:///home/arccy/third_party/kubernetes-json-schema/default/v1.27.3-standalone/all.json"] = {
-              "*.k8s.yaml",
-            },
-            kubernetes = "",
-          },
+          -- kubernetes = "",
+          ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+          ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+          ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+          ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+          ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+          ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+          ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
           yamlEditor = {
             ["editor.insertSpaces"] = false,
             ["editor.formatOnType"] = false,
@@ -51,7 +51,7 @@ for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json", "jsx" },
     }
   elseif lsp == "tsserver" then
     lspconfig[lsp].setup {
@@ -99,6 +99,22 @@ for _, lsp in ipairs(servers) do
         end
       end,
     }
+  -- elseif lsp == "rust_analyzer" then
+  --   lspconfig[lsp].setup {
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --     completion = {
+  --       addCallArgumentSnippets = false,
+  --       addCallParenthesis = false,
+  --     },
+  --     settings = {
+  --       ["rust-analyzer"] = {
+  --         check = {
+  --           extraArgs = { "-r" },
+  --         },
+  --       },
+  --     },
+  --   }
   else
     lspconfig[lsp].setup {
       on_attach = on_attach,

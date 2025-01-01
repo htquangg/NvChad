@@ -26,7 +26,10 @@ M.treesitter = {
     "sql",
     "yaml",
     "rust",
+    "toml",
     "python",
+    "php",
+    -- "blade"
   },
   indent = {
     enable = true,

@@ -22,6 +22,24 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = overrides.treesitter,
+    -- config = function(_, opts)
+    --   vim.filetype.add {
+    --     pattern = {
+    --       [".*%.blade%.php"] = "blade",
+    --     },
+    --   }
+    --
+    --   require("nvim-treesitter.configs").setup(opts)
+    --   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    --   parser_config.blade = {
+    --     install_info = {
+    --       url = "https://github.com/EmranMR/tree-sitter-blade",
+    --       files = { "src/parser.c" },
+    --       branch = "main",
+    --     },
+    --     filetype = "blade",
+    --   }
+    -- end,
   },
 
   {
@@ -79,13 +97,13 @@ local plugins = {
   },
 
   -- Install a plugin
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("better_escape").setup()
-    end,
-  },
+  -- {
+  --   "max397574/better-escape.nvim",
+  --   event = "InsertEnter",
+  --   config = function()
+  --     require("better_escape").setup()
+  --   end,
+  -- },
 
   {
     "stevearc/conform.nvim",
@@ -108,10 +126,6 @@ local plugins = {
   {
     "lambdalisue/suda.vim",
     event = "VeryLazy",
-  },
-  {
-    "LunarVim/bigfile.nvim",
-    event = "BufReadPre",
   },
   -- To make a plugin not be loaded
   -- {
